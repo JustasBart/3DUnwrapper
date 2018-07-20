@@ -11,6 +11,9 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 
+#define Z_AXIS_SERIAL       "ttyACM0"
+#define OPTI_SCAN_SERIAL    "ttyUSB0"
+
 #define MOTOR_SLEEP
 // #define RULER_GUIDE
 
@@ -58,7 +61,6 @@ private slots:
     void on_gantryDownButton_pressed();
     void on_testButton_pressed();
     void on_laplacianButton_pressed();
-
     void on_guidesButon_pressed();
 
 public slots:

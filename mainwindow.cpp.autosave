@@ -72,7 +72,7 @@ void MainWindow::slotCompute()
 
 void MainWindow::handleSerialCommunications()
 {   
-    serialOptiScan.setPortName("ttyUSB0"); // -> Might change
+    serialOptiScan.setPortName(OPTI_SCAN_SERIAL); // -> Might change
 
     if(serialOptiScan.open(QIODevice::ReadWrite))
     {
@@ -113,7 +113,7 @@ void MainWindow::handleSerialCommunications()
 
     /////////////////////////////////////////////////////////
 
-    serialZAxis.setPortName("ttyACM1"); // -> Might change
+    serialZAxis.setPortName(Z_AXIS_SERIAL); // -> Might change
 
     if(serialZAxis.open(QIODevice::ReadWrite))
     {
