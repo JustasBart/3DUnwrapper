@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1313</width>
-    <height>680</height>
+    <width>1309</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,28 +19,46 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>301</width>
-      <height>120</height>
+      <width>641</width>
+      <height>151</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="connectButton">
+     <item row="3" column="2">
+      <widget class="QPushButton" name="guidesButon">
        <property name="text">
-        <string>Connect</string>
+        <string>Guides off</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="leftButton">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="homeButton">
        <property name="text">
-        <string>Left</string>
+        <string>Home</string>
        </property>
-       <property name="autoRepeat">
-        <bool>true</bool>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLabel" name="uBoundLabel">
+       <property name="text">
+        <string>0</string>
        </property>
-       <property name="autoRepeatInterval">
-        <number>50</number>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="lowerBoundry">
+       <property name="text">
+        <string>Set Lower</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QSpinBox" name="widthSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>10</number>
        </property>
       </widget>
      </item>
@@ -57,16 +75,10 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="gantryUpButton">
+     <item row="3" column="3">
+      <widget class="QPushButton" name="upperBoundry">
        <property name="text">
-        <string>GantryUp</string>
-       </property>
-       <property name="autoRepeat">
-        <bool>true</bool>
-       </property>
-       <property name="autoRepeatInterval">
-        <number>50</number>
+        <string>Set Higher</string>
        </property>
       </widget>
      </item>
@@ -83,26 +95,84 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="homeButton">
+     <item row="2" column="2">
+      <widget class="QPushButton" name="maxFocus">
        <property name="text">
-        <string>Home</string>
+        <string>Max Foc.</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QPushButton" name="gantryDownButton">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="connectButton">
        <property name="text">
-        <string>GantryDown</string>
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="zeroButton">
+       <property name="text">
+        <string>Zero-Out</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="stackButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>StackImages</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QLabel" name="heightByLabel">
+       <property name="text">
+        <string>Height by</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="leftButton">
+       <property name="text">
+        <string>Left</string>
        </property>
        <property name="autoRepeat">
         <bool>true</bool>
        </property>
-       <property name="autoRepeatDelay">
-        <number>300</number>
-       </property>
        <property name="autoRepeatInterval">
         <number>50</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="laplacianButton">
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Regular</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QSpinBox" name="heightSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>10</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="minFocus">
+       <property name="text">
+        <string>Min Foc.</string>
        </property>
       </widget>
      </item>
@@ -119,34 +189,50 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="zeroButton">
+     <item row="0" column="4">
+      <widget class="QLabel" name="widthByLabel">
        <property name="text">
-        <string>Zero-Out</string>
+        <string>Width by</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="testButton">
+     <item row="1" column="3">
+      <widget class="QLabel" name="lBoundLabel">
        <property name="text">
-        <string>StackImages</string>
+        <string>0</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="laplacianButton">
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
+     <item row="1" column="5">
+      <widget class="QSpinBox" name="layersSpinBox"/>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="layersLabel">
        <property name="text">
-        <string>Regular</string>
+        <string>Layers</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="guidesButon">
+     <item row="2" column="5">
+      <widget class="QLabel" name="strengthLabel">
        <property name="text">
-        <string>Guides off</string>
+        <string>Strength</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QSpinBox" name="strengthSpinBox"/>
+     </item>
+     <item row="4" column="0" colspan="6">
+      <widget class="QSlider" name="moveByDistance">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -156,9 +242,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>130</y>
+      <y>170</y>
       <width>640</width>
-      <height>480</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="maximumSize">
@@ -171,10 +257,10 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Main screen</string>
     </property>
     <property name="scaledContents">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -184,30 +270,43 @@
     <property name="geometry">
      <rect>
       <x>660</x>
-      <y>130</y>
+      <y>170</y>
       <width>640</width>
-      <height>480</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Preview screen</string>
     </property>
     <property name="scaledContents">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="serialLabel">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>10</y>
+      <width>221</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Serial Message ...</string>
+    </property>
+   </widget>
    <widget class="QLabel" name="qualityLabel">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>12</y>
-      <width>181</width>
+      <x>740</x>
+      <y>120</y>
+      <width>221</width>
       <height>21</height>
      </rect>
     </property>
@@ -221,7 +320,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1313</width>
+     <width>1309</width>
      <height>22</height>
     </rect>
    </property>
