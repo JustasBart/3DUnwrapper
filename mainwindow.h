@@ -19,13 +19,14 @@
 #define OMNI_SERIAL         "ttyUSB1"
 #define OPTI_SCAN_SERIAL    "ttyUSB0"
 
-#define FOCUS_ENERGY        350
+#define FOCUS_ENERGY        500
 
 // #define MOTOR_SLEEP
 // #define RULER_GUIDE
 // #define TEST_IMAGE_STACKING
 
-#define UN8NUMBEROFIMAGES   30
+// #define UN8NUMBEROFIMAGES   30
+// #define ROI_GROWTH          8
 
 #define IMAGE_WIDTH         1920
 #define IMAGE_HEIGHT        1080
@@ -67,6 +68,10 @@ private slots:
     void on_upperBoundry_pressed();
     void on_minFocus_pressed();
     void on_maxFocus_pressed();
+    void on_layersSpinBox_valueChanged(int arg1);
+    void on_strengthSpinBox_valueChanged(int arg1);
+    void on_roiGrowthSpinBox_valueChanged(int arg1);
+    void on_areaSpinBox_valueChanged(int arg1);
 
 public slots:
 
@@ -97,7 +102,6 @@ private:
     Mat LapGrey;
     Mat LapMat;
 
-    Mat focusArea;
     double focus = 0;
 
     double bestFocus = 0;
@@ -114,9 +118,9 @@ private:
     QSerialPort serialOptiScan;
     QSerialPort serialOmni;
 
-    Mat SavedImage[UN8NUMBEROFIMAGES];
-    Mat GreyImage[UN8NUMBEROFIMAGES];
-    Mat LaplacianImage[UN8NUMBEROFIMAGES];
+    int UN8NUMBEROFIMAGES;
+    int ROI_GROWTH;
+    int ENERGY_MULTIPLIER;
 
     bool stackAllow[2];
 
@@ -141,10 +145,10 @@ private:
 
     void processHeight(Mat heigthMat[], Mat finalMat);
     void expandROI(int i, int j, cv::Rect *region, int position);
-    bool checkLocalEnergy(Mat piece, Rect region, int position);
     void moveGantry(GantryPosition instruction, double millimeter);
-
     void zoomOutHeight(void);
+
+    void increaseROI(int width, int height, cv::Rect *region, int position);
 };
 
 #endif // MAINWINDOW_H

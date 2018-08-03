@@ -19,49 +19,11 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>641</width>
+      <width>771</width>
       <height>151</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="2">
-      <widget class="QPushButton" name="guidesButon">
-       <property name="text">
-        <string>Guides off</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="homeButton">
-       <property name="text">
-        <string>Home</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QLabel" name="uBoundLabel">
-       <property name="text">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QPushButton" name="lowerBoundry">
-       <property name="text">
-        <string>Set Lower</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QSpinBox" name="widthSpinBox">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>10</number>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="rightButton">
        <property name="text">
@@ -79,26 +41,6 @@
       <widget class="QPushButton" name="upperBoundry">
        <property name="text">
         <string>Set Higher</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="downButton">
-       <property name="text">
-        <string>Down</string>
-       </property>
-       <property name="autoRepeat">
-        <bool>true</bool>
-       </property>
-       <property name="autoRepeatInterval">
-        <number>50</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QPushButton" name="maxFocus">
-       <property name="text">
-        <string>Max Foc.</string>
        </property>
       </widget>
      </item>
@@ -123,13 +65,6 @@
        </property>
        <property name="text">
         <string>StackImages</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QLabel" name="heightByLabel">
-       <property name="text">
-        <string>Height by</string>
        </property>
       </widget>
      </item>
@@ -169,6 +104,33 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="5">
+      <widget class="QSpinBox" name="layersSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>30</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLabel" name="widthByLabel">
+       <property name="text">
+        <string>Width by</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QLabel" name="lBoundLabel">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="minFocus">
        <property name="text">
@@ -189,22 +151,69 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="4">
-      <widget class="QLabel" name="widthByLabel">
-       <property name="text">
-        <string>Width by</string>
+     <item row="1" column="4">
+      <widget class="QSpinBox" name="widthSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>10</number>
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="QLabel" name="lBoundLabel">
+     <item row="2" column="1">
+      <widget class="QPushButton" name="downButton">
        <property name="text">
-        <string>0</string>
+        <string>Down</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>true</bool>
+       </property>
+       <property name="autoRepeatInterval">
+        <number>50</number>
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
-      <widget class="QSpinBox" name="layersSpinBox"/>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="maxFocus">
+       <property name="text">
+        <string>Max Foc.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QLabel" name="heightByLabel">
+       <property name="text">
+        <string>Height by</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="guidesButon">
+       <property name="text">
+        <string>Guides off</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="homeButton">
+       <property name="text">
+        <string>Home</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QSpinBox" name="strengthSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>5</number>
+       </property>
+       <property name="value">
+        <number>3</number>
+       </property>
+      </widget>
      </item>
      <item row="0" column="5">
       <widget class="QLabel" name="layersLabel">
@@ -220,10 +229,74 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="5">
-      <widget class="QSpinBox" name="strengthSpinBox"/>
+     <item row="0" column="6">
+      <widget class="QLabel" name="roiGrowthLabel">
+       <property name="text">
+        <string>ROI Growth</string>
+       </property>
+      </widget>
      </item>
-     <item row="4" column="0" colspan="6">
+     <item row="2" column="3">
+      <widget class="QLabel" name="uBoundLabel">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="6">
+      <widget class="QSpinBox" name="roiGrowthSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>200</number>
+       </property>
+       <property name="value">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="lowerBoundry">
+       <property name="text">
+        <string>Set Lower</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="6">
+      <widget class="QSpinBox" name="energyThresholdSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+       <property name="value">
+        <number>250</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="6">
+      <widget class="QLabel" name="thresholdLabel">
+       <property name="text">
+        <string>Threshold</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="7">
+      <widget class="QSpinBox" name="areaSpinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>64</number>
+       </property>
+       <property name="value">
+        <number>4</number>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="4">
       <widget class="QSlider" name="moveByDistance">
        <property name="minimum">
         <number>1</number>
@@ -233,6 +306,13 @@
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="7">
+      <widget class="QLabel" name="searchAreaLabel">
+       <property name="text">
+        <string>Search Area</string>
        </property>
       </widget>
      </item>
@@ -291,7 +371,7 @@
    <widget class="QLabel" name="serialLabel">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>800</x>
       <y>10</y>
       <width>221</width>
       <height>71</height>
@@ -304,7 +384,7 @@
    <widget class="QLabel" name="qualityLabel">
     <property name="geometry">
      <rect>
-      <x>740</x>
+      <x>800</x>
       <y>120</y>
       <width>221</width>
       <height>21</height>

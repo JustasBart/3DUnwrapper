@@ -21,12 +21,15 @@ MainWindow::MainWindow(QWidget *parent):
     enableButtons(false);
     laplacianMode = false;
     guidesToggle = false;
-    
-    focus_area_size = 4;
 
     upperFocus = 0;
     lowerFocus = 0;
     cancelStack = false;
+
+    focus_area_size = ui -> areaSpinBox -> value();
+    UN8NUMBEROFIMAGES = ui -> layersSpinBox -> value();
+    ROI_GROWTH = ui -> roiGrowthSpinBox -> value();
+    ENERGY_MULTIPLIER = ui -> energyThresholdSpinBox -> value();
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +54,7 @@ void MainWindow::slotCompute()
     if (laplacianMode)
     {
         cvtColor(LiveImage, LapGrey, CV_BGRA2GRAY);
-        Laplacian(LapGrey, LapMat, CV_8U, 1, 5, 0, BORDER_ISOLATED);
+        Laplacian(LapGrey, LapMat, CV_8U, 1, ENERGY_MULTIPLIER, 0, BORDER_ISOLATED);
         convertScaleAbs(LapMat, LapMat);
         
         cv::GaussianBlur( LapMat, LapMat, cv::Point(11, 11), 0 );
@@ -239,10 +242,23 @@ void MainWindow::enableButtons(bool state)
     
     ui -> lowerBoundry -> setEnabled(state);
     ui -> upperBoundry -> setEnabled(state);
+
+    ui -> widthSpinBox -> setEnabled(state);
+    ui -> heightSpinBox -> setEnabled(state);
+
+    ui -> layersSpinBox -> setEnabled(state);
+    ui -> strengthSpinBox -> setEnabled(state);
+    ui -> roiGrowthSpinBox -> setEnabled(state);
+    ui -> energyThresholdSpinBox -> setEnabled(state);
+    ui -> areaSpinBox -> setEnabled(state);
 }
 
 void MainWindow::StackImagesFocusFast(Mat threeDimentional)
 {
+    Mat SavedImage[UN8NUMBEROFIMAGES];
+    Mat GreyImage[UN8NUMBEROFIMAGES];
+    Mat LaplacianImage[UN8NUMBEROFIMAGES];
+
     focusBy = lowerFocus < upperFocus ? ((upperFocus - lowerFocus) / UN8NUMBEROFIMAGES) : ((lowerFocus - upperFocus) / UN8NUMBEROFIMAGES);
     focusHeight = lowerFocus < upperFocus ? lowerFocus : upperFocus;
     
@@ -251,7 +267,6 @@ void MainWindow::StackImagesFocusFast(Mat threeDimentional)
         if (!cancelStack)
         {
             zoomOutHeight();
-            qSleep(150);
 
             camera >> SavedImage[i];
             focusHeight += focusBy;
@@ -259,7 +274,7 @@ void MainWindow::StackImagesFocusFast(Mat threeDimentional)
             qDebug() << QString::number(focusHeight);
 
             cvtColor( SavedImage[i], GreyImage[i], CV_BGRA2GRAY );
-            Laplacian( GreyImage[i], LaplacianImage[i], CV_8U, 1, 5, 0, BORDER_ISOLATED );
+            Laplacian( GreyImage[i], LaplacianImage[i], CV_8U, 1, ENERGY_MULTIPLIER, 0, BORDER_ISOLATED );
             convertScaleAbs( LaplacianImage[i], LaplacianImage[i] );
 
             cv::GaussianBlur( LaplacianImage[i], LaplacianImage[i], cv::Point(11, 11), 0 );
@@ -304,21 +319,32 @@ void MainWindow::processHeight(Mat heigthMat[], Mat finalMat)
         {
             bestFocus = 0.0;
             bestImage = 0;
-            
-            for(int k = 0; k < UN8NUMBEROFIMAGES; k++)
+
+            roi = cv::Rect(i, j, focus_area_size, focus_area_size);
+
+            for(int n = 1; n < ROI_GROWTH; n *= 2)
             {
-                roi = cv::Rect(i, j, focus_area_size, focus_area_size);
-                
-                for(int n = 0; n < 500; n++)
+                for(int k = 0; k < UN8NUMBEROFIMAGES; k++)
                 {
                     if (!cancelStack)
                     {
-                        heigthMat[k]( roi ).copyTo( focusArea );
+                        Mat focusArea;
+
+                        try
+                        {
+                            heigthMat[k](roi).copyTo( focusArea );
+                        }
+                        catch (Exception e)
+                        {
+                            qDebug() << "Could not paste in";
+                            break;
+                        }
+
                         focus = cv::sum( focusArea )[0];
 
                         if (focus > FOCUS_ENERGY) // Pass filter
                         {
-                            if (focus > bestFocus && checkLocalEnergy(heigthMat[k], roi, n))
+                            if (focus > bestFocus)
                             {
                                 bestFocus = focus;
                                 bestImage = k;
@@ -326,40 +352,34 @@ void MainWindow::processHeight(Mat heigthMat[], Mat finalMat)
                                 break;
                             }
                         }
+                        else
+                            increaseROI(i, j, &roi, n);
                     }
                     else
                         return;
                 }
             }
-            
+
+            roi = cv::Rect(i, j, focus_area_size, focus_area_size);
+
             finalMat(roi) = Scalar(bestImage * heightWeight);
         }
     }
 }
 
-bool MainWindow::checkLocalEnergy(Mat piece, cv::Rect region, int position)
+void MainWindow::increaseROI(int width, int height, cv::Rect *region, int position)
 {
-    if (region.x - position >= 0 && region.y - position >= 0)
+    if (width - position >= 0 && height - position >= 0)
     {
-        if (region.x + focus_area_size + position <= IMAGE_WIDTH && region.y + focus_area_size + position <= IMAGE_HEIGHT)
+        if (width + focus_area_size + position <= IMAGE_WIDTH && height + focus_area_size + position <= IMAGE_HEIGHT)
         {
-            region.x -= position;
-            region.y -= position;
-            
-            region.width += position * 2;
-            region.height += position * 2;
-            
-            Mat tempMat(region.height, region.width, CV_8UC1, Scalar(0));
-            double newFocus;
-            
-            piece( region ).copyTo( tempMat );
-            newFocus = cv::sum( tempMat )[0];
-            
-            return newFocus > (FOCUS_ENERGY + FOCUS_ENERGY * 0.2) ? true : false;
+            region -> x -= position;
+            region -> y -= position;
+
+            region -> width  += position;
+            region -> height += position;
         }
     }
-    
-    return false;
 }
 
 int MainWindow::findFocusLevel()
@@ -640,7 +660,6 @@ void MainWindow::on_stackButton_pressed()
 
         double zRatio = findMoveZoomRatio();
 
-
         double xMoveBy = zRatio * IMAGE_WIDTH;
         double yMoveBy = zRatio * IMAGE_HEIGHT;
 
@@ -660,6 +679,7 @@ void MainWindow::on_stackButton_pressed()
                 Mat partOf3DMat(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1, Scalar(0));
 
                 StackImagesFocusFast( partOf3DMat );
+
                 partOf3DMat.copyTo( full3DMat(roi) );
 
                 testImage(full3DMat);
@@ -693,4 +713,24 @@ void MainWindow::on_stackButton_pressed()
         enableButtons(true);
         ui -> stackButton -> setText("StackImages");
     }
+}
+
+void MainWindow::on_layersSpinBox_valueChanged(int arg1)
+{
+    UN8NUMBEROFIMAGES = arg1;
+}
+
+void MainWindow::on_strengthSpinBox_valueChanged(int arg1)
+{
+    ENERGY_MULTIPLIER = arg1;
+}
+
+void MainWindow::on_roiGrowthSpinBox_valueChanged(int arg1)
+{
+    ROI_GROWTH = arg1;
+}
+
+void MainWindow::on_areaSpinBox_valueChanged(int arg1)
+{
+    focus_area_size = arg1;
 }
